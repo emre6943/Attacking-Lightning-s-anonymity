@@ -1,4 +1,4 @@
-# Attacking Lightning's Anonymity
+# Lightning's Anonymity with Length Bounded Random Walk Insertions
 
 An attack that enables an intermediary to break the anonymity of the source and destination of a trannsaction in the Lightning network. 
 
