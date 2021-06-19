@@ -22,18 +22,43 @@ The experiment is run on a snapshot of the Lightning Network obtained from https
 
 *results.py* - Generates statistics and plots from the anonymity sets.
 
-## Running an experiment
+*demo.py* - Simulates a generated network with the given pathing algorithm. Most of the functions are here
 
-- Choose the set of adversaries using the centrality data from data/Centrality as your guide.
-- Specify the number of transactions you want to simulate in a run.
-- Specify the mechanism for choosing source destination pairs for each transaction.
-- The details of the transactions and the results of each attack instance is copied to *results.json*
+## Running an experiment on Snapshot
 
-## Results
+- Delete everything in results.json and put an empty array "[]"
+- Run the SnapShot.py an copy the ADS because they are needed.
+- change the ads varaible in NewResults.py to the copied ads.
+- Run NewResults.py
 
-The following results can be obtained from *results.py*:
-- A figure plotting the sizes of each source and destination anonymity set.
-- Number of transactions for which either source or the destination anonymity set was a singular set or both.
-- The number of transactions attacked by each adversary.
-- Correlation of the number of hops from the adversary to source/destination to the size of source/destination anonymity set.
+Note: If you want to change the routing algorithm or attack find and change it in code. 
+Runing the Snapshot takes a long time if you want a fast experiment read bellow.
+deanonymize function is important, related to the attack.
+random_walk function is related to the pathing.
+
+## Running an experiment on a Generated Network (fast)
+
+- Delete everything in results.json and put an empty array "[]"
+- set the if statement to true in demo.py, run demo.py
+- copy the Adversaries from demo.py and change the ads varaible in NewResults.py to the copied ads.
+- Make sure NewResults.py is using the generated saved network.
+- Run NewResults.py
+
+Note: If you want to change the routing algorithm or attack find and change it in code. 
+deanonymize function is important, related to the attack.
+random_walk function is related to the pathing.
+you can change the properties of generated network.
+
+
+## Metrics
+
+- "Average fee per transaction" is important forthe user and depends on the routing algorithm.Most of the time, the gain in anonymity is paidwith Average fee per transaction. 
+- Another price of anonymity is "average number of hops per trans-action", the higher this number is the busier the network, which makes it more prone to attackslike denial of service.
+- "Average anonymity source size" is the averagenumber of possible senders per transaction. The bigger this average number the harder to find the real sender, since the sender set is used in generating possible paths.
+- "Average anonymity sink size" is the same as Av-erage anonymity source size and it is average number of possible receivers per transaction.
+- "Clean any singular ratio" is what the attackers would like to see. It gives the ratio of how manyof the possible senders, or receiver sets had only 1node in it. It just means the attacker knows the sender or the receiver with 100% certainty. This metric is specifically important for the unmodifiedattack on the LND routing, because it isessentially the success rate of that attack. 
+- "Cleanall singular ratio" is just like Clean any singularratio, but instead of success defined as knowingthe sender or the receiver, rather success is defined as knowing the sender and the receiver.
+- Finally our main metrics to evaluate the attackare defined as "single attack and/or", and "com-bined attack and/or". Single attack is when thecurious nodes do not share information in betweeneach other and guess the sender and the receiverdepending on only their knowledge.  Therefore, "single attack and" is the ratio of correctly guessed sender and receiver,while "single attack or" is when the single attack guessed the sender or the receiver correctly. Com-bined attack is when curious nodes share theirinformation with each other and guess together."Combined attack and" is the ratio of attackers guessing the sender and the receiver correctly, and "combined attack or" is the ratio of attackers guessing the sender or the receiver correctly.
+
+
 
