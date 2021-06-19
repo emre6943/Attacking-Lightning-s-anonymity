@@ -236,7 +236,7 @@ def deanonymize_lnd(G,target,path,amt):
             # is a valid second node. So, all neighbors of curr that have not occured in the path are potential sources.
             if pre in paths[curr]:
                 for [v,curr] in G.in_edges(curr):
-                        if v not in paths[curr] and G.nodes[v]["Tech"] == 0:
+                        if v not in paths[curr]:
                             sources.append(v)
     sources = list(set(sources))
     return sources
@@ -317,7 +317,7 @@ def deanonymize_c(G,target,path,amt,fuzz):
             # is a valid second node. So, all neighbors of curr that have not occured in the path are potential sources.
             if pre in paths[curr]:
                 for [v,curr] in G.in_edges(curr):
-                        if v not in paths[curr] and G.nodes[v]["Tech"] == 1:
+                        if v not in paths[curr]:
                             sources.append(v)
     sources = list(set(sources))
     return sources
@@ -477,7 +477,7 @@ def deanonymize_ecl(G,target,pa,amt):
                 # fill remaining possible sources
                 if pre in p:
                     for [v, curr] in G.in_edges(curr):
-                        if v not in p and G.nodes[v]["Tech"] == 2:
+                        if v not in paths[curr] and G.nodes[v]["Tech"] == 2:
                             sources.append(v)
 #                     ind = p.index(pre)
 #                     if p[ind:] == pa:
